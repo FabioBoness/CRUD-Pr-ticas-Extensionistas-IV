@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Super Estoque</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Inter', sans-serif;
+
+    background:#f3f6fb;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:100vh;
+}
+
+/* CARD */
+
+.register-container{
+
+    width:100%;
+    max-width:450px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* LOGO */
+
+.logo{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:12px;
+
+    margin-bottom:30px;
+}
+
+.logo-icon{
+
+    width:50px;
+    height:50px;
+
+    background:#1e3a5f;
+
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+
+    font-size:24px;
+}
+
+.logo h1{
+
+    color:#1e3a5f;
+    font-size:24px;
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#64748b;
+
+    margin-bottom:35px;
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:22px;
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+    color:#334155;
+}
+
+.form-group input{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    border:1px solid #dbe2ea;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:0.2s;
+}
+
+.form-group input:focus{
+
+    border-color:#3c6eaf;
+
+    box-shadow:0 0 0 4px rgba(60,110,175,0.12);
+}
+
+/* SENHAS */
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-wrapper input{
+    padding-right:50px;
+}
+
+.toggle-password{
+
+    position:absolute;
+
+    right:15px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    cursor:pointer;
+
+    color:#64748b;
+
+    font-size:18px;
+
+    user-select:none;
+}
+
+.toggle-password:hover{
+    color:#1e3a5f;
+}
+
+/* ERRO */
+
+.error-message{
+
+    background:#fff1f1;
+
+    border:1px solid #ffb3b3;
+
+    color:#c53030;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    margin-bottom:20px;
+
+    font-size:14px;
+
+    text-align:center;
+
+    display:none;
+}
+
+/* BOTÃO */
+
+.btn-register{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#1e3a5f;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+.btn-register:hover{
+    background:#274a77;
+}
+
+/* LINK */
+
+.login-link{
+
+    margin-top:25px;
+
+    text-align:center;
+}
+
+.login-link a{
+
+    text-decoration:none;
+
+    color:#1e3a5f;
+
+    font-weight:600;
+}
+
+.login-link a:hover{
+    text-decoration:underline;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <div class="logo">
+
+        <h1>Super Estoque</h1>
+
+    </div>
+
+    <p class="subtitle">
+        Crie sua conta para acessar o sistema
+    </p>
+
+    <form method="post" id="registerForm">
+
+        {% csrf_token %}
+
+        <!-- USUÁRIO -->
+
+        <div class="form-group">
+
+            <label>Usuário</label>
+
+            {{ form.username }}
+
+        </div>
+
+        <!-- SENHA -->
+
+        <div class="form-group">
+
+            <label>Senha</label>
+
+            <div class="password-wrapper">
+
+                {{ form.password1 }}
+
+                <span
+                    class="toggle-password"
+                    onclick="togglePassword('id_password1')"
+                >
+                    👁
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- CONFIRMAR SENHA -->
+
+        <div class="form-group">
+
+            <label>Confirmar Senha</label>
+
+            <div class="password-wrapper">
+
+                {{ form.password2 }}
+
+                <span
+                    class="toggle-password"
+                    onclick="togglePassword('id_password2')"
+                >
+                    👁
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- ERRO -->
+
+        <div
+            class="error-message"
+            id="password-error"
+        >
+            As senhas informadas não são iguais, preencha novamente
+        </div>
+
+        <!-- BOTÃO -->
+
+        <button type="submit" class="btn-register">
+            Cadastrar
+        </button>
+
+    </form>
+
+    <!-- VOLTAR -->
+
+    <div class="login-link">
+
+        <a href="{% url 'home' %}">
+            Voltar para login
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+/* MOSTRAR / OCULTAR SENHA */
+
+function togglePassword(inputId){
+
+    const input = document.getElementById(inputId);
+
+    if(input.type === "password"){
+
+        input.type = "text";
+
+    }else{
+
+        input.type = "password";
+
+    }
+
+}
+
+/* VALIDAÇÃO */
+
+const form = document.getElementById("registerForm");
+
+form.addEventListener("submit", function(event){
+
+    const senha1Input = document.getElementById("id_password1");
+    const senha2Input = document.getElementById("id_password2");
+
+    const senha1 = senha1Input.value;
+    const senha2 = senha2Input.value;
+
+    const errorBox = document.getElementById("password-error");
+
+    /* SENHAS DIFERENTES */
+
+    if(senha1 !== senha2){
+
+        event.preventDefault();
+
+        errorBox.style.display = "block";
+
+        /* LIMPA OS CAMPOS */
+
+        senha1Input.value = "";
+        senha2Input.value = "";
+
+        /* FOCO */
+
+        senha1Input.focus();
+
+    }else{
+
+        errorBox.style.display = "none";
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

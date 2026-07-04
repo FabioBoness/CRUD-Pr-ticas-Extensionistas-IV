@@ -1,0 +1,383 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+/* CONTAINER */
+
+.form-container{
+    max-width:450px;
+}
+
+/* TÍTULO */
+
+.form-title{
+
+    font-size:30px;
+
+    color:#1e3a5f;
+
+    margin-bottom:25px;
+
+    font-weight:700;
+}
+
+/* CARD */
+
+.form-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* CAMPOS */
+
+.form-group{
+    margin-bottom:24px;
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    color:#334155;
+
+    font-size:15px;
+}
+
+/* INPUTS */
+
+.form-group input{
+
+    width:100%;
+
+    max-width:420px;
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    border:1px solid #dce3ea;
+
+    background:#f8fafc;
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:0.2s;
+}
+
+.form-group input:focus{
+
+    background:white;
+
+    border-color:#3c6eaf;
+
+    box-shadow:0 0 0 4px rgba(60,110,175,0.10);
+}
+
+/* BOTÕES */
+
+.form-actions{
+
+    display:flex;
+
+    gap:14px;
+
+    margin-top:35px;
+
+    flex-wrap:wrap;
+}
+
+.btn-action{
+
+    padding:14px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:0.2s;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    text-decoration:none;
+}
+
+.btn-action:hover{
+    transform:translateY(-2px);
+}
+
+/* SALVAR */
+
+.btn-save{
+
+    background:#2ea44f;
+
+    color:white;
+}
+
+.btn-save:hover{
+    background:#279144;
+}
+
+/* VOLTAR */
+
+.btn-back{
+
+    background:#edf2f7;
+
+    color:#1f2937;
+}
+
+.btn-back:hover{
+    background:#dde5ee;
+}
+
+/* EXCLUIR */
+
+.btn-delete{
+
+    background:#d64545;
+
+    color:white;
+}
+
+.btn-delete:hover{
+    background:#bf3b3b;
+}
+
+</style>
+
+<div class="form-container">
+
+    <h1 class="form-title">
+
+        {% if form.instance.id %}
+            Editar Produto
+        {% else %}
+            Cadastro de Produto
+        {% endif %}
+
+    </h1>
+
+    <div class="form-card">
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <!-- CATEGORIA -->
+
+            <!-- <div class="form-group">
+
+                <label>
+                    Categoria
+                </label>
+
+                {{ form.categoria }}
+
+            </div> -->
+
+            <!-- NOME -->
+
+            <div class="form-group">
+
+                <label>
+                    Nome do Produto
+                </label>
+
+                {{ form.nome }}
+
+            </div>
+
+            <!-- CÓDIGO -->
+
+            <div class="form-group">
+
+                <label>
+                    Código
+                </label>
+
+                {{ form.codigo }}
+
+            </div>
+
+            <!-- QUANTIDADE -->
+
+            <div class="form-group">
+
+                <label>
+                    Quantidade
+                </label>
+
+                {{ form.quantidade }}
+
+            </div>
+
+            <!-- VALOR -->
+
+            <div class="form-group">
+
+                <label>
+                    Valor Unitário
+                </label>
+
+                <input
+                    type="text"
+                    name="valor_unitario"
+                    id="valor_unitario"
+                    placeholder="R$ 0,00"
+                    value="{% if form.valor_unitario.value %}{{ form.valor_unitario.value }}{% endif %}"
+                    required
+                >
+
+            </div>
+
+            <!-- BOTÕES -->
+
+            <div class="form-actions">
+
+                <!-- SALVAR -->
+
+                <button
+                    type="submit"
+                    class="btn-action btn-save"
+                >
+
+                    Salvar
+
+                </button>
+
+                <!-- EXCLUIR -->
+
+                {% if form.instance.id %}
+
+                <a
+                    href="/deletar/{{ form.instance.id }}/"
+                    class="btn-action btn-delete"
+                    onclick="return confirmarExclusao()"
+                >
+
+                    Excluir
+
+                </a>
+
+                <!-- VOLTAR -->
+
+                <button
+                    type="button"
+                    class="btn-action btn-back"
+                    onclick="history.back()"
+                >
+
+                    Voltar
+
+                </button>
+
+                {% endif %}
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- SCRIPT -->
+
+<script>
+
+/* CAMPO VALOR */
+
+const valorInput = document.getElementById('valor_unitario');
+
+/* FORMATA VALOR AO CARREGAR */
+
+window.addEventListener('load', function(){
+
+    let value = valorInput.value;
+
+    if(value){
+
+        value = parseFloat(value)
+            .toFixed(2)
+            .replace('.', ',');
+
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+        valorInput.value = 'R$ ' + value;
+    }
+
+});
+
+/* CONFIRMAÇÃO DE EXCLUSÃO */
+
+function confirmarExclusao(){
+
+    return confirm(
+        "Tem certeza que deseja excluir este produto?\n\nEssa ação não poderá ser desfeita."
+    );
+
+}
+
+/* MÁSCARA MONETÁRIA */
+
+valorInput.addEventListener('input', function(e){
+
+    let value = e.target.value;
+
+    value = value.replace(/\D/g, '');
+
+    value = (value / 100).toFixed(2) + '';
+
+    value = value.replace(".", ",");
+
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    value = 'R$ ' + value;
+
+    e.target.value = value;
+
+});
+
+/* REMOVE MÁSCARA AO SALVAR */
+
+document.querySelector('form').addEventListener('submit', function(){
+
+    let value = valorInput.value;
+
+    value = value
+        .replace('R$ ', '')
+        .replace(/\./g, '')
+        .replace(',', '.');
+
+    valorInput.value = value;
+
+});
+
+</script>
+
+{% endblock %}

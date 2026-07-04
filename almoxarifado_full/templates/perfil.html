@@ -1,0 +1,667 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.profile-container{
+    max-width:650px;
+}
+
+.profile-title{
+    font-size:30px;
+    color:#1e3a5f;
+    margin-bottom:25px;
+    font-weight:700;
+}
+
+.profile-card{
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+
+.form-group{
+    margin-bottom:22px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:10px;
+    font-weight:600;
+    color:#334155;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"]{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    border:1px solid #dce3ea;
+
+    background:#f8fafc;
+
+    outline:none;
+
+    font-size:15px;
+}
+
+.form-group input:focus{
+
+    border-color:#3c6eaf;
+
+    background:white;
+
+    box-shadow:0 0 0 4px rgba(60,110,175,0.10);
+}
+
+.form-actions{
+
+    display:flex;
+
+    gap:14px;
+
+    margin-top:30px;
+
+    flex-wrap:wrap;
+}
+
+.btn-action{
+
+    padding:14px 20px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:white;
+
+    transition:0.2s;
+}
+
+.btn-action:hover{
+    transform:translateY(-2px);
+}
+
+.btn-update{
+    background:#1e3a5f;
+}
+
+.btn-password{
+    background:#2ea44f;
+}
+
+.btn-delete{
+    background:#d64545;
+}
+
+.btn-confirm{
+    background:#2563eb;
+}
+
+.btn-cancel{
+    background:#d64545;
+}
+
+.error-box{
+
+    background:#fff1f1;
+
+    border:1px solid #ffb3b3;
+
+    color:#c53030;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    margin-bottom:20px;
+}
+
+.success-box{
+
+    background:#ecfdf3;
+
+    border:1px solid #8ce0b5;
+
+    color:#166534;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    margin-bottom:20px;
+}
+
+.hidden{
+    display:none;
+}
+
+.checkbox-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:10px;
+}
+
+</style>
+
+<div class="profile-container">
+
+    <h1 class="profile-title">
+        Meu Perfil
+    </h1>
+
+    <div class="profile-card">
+
+        <!-- ERRO -->
+
+        {% if erro %}
+
+        <div class="error-box">
+            {{ erro }}
+        </div>
+
+        {% endif %}
+
+        <!-- SUCESSO -->
+
+        {% if sucesso %}
+
+        <div class="success-box">
+            {{ sucesso }}
+        </div>
+
+        {% endif %}
+
+        <form method="post" id="perfilForm">
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="acao"
+                id="acaoInput"
+            >
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Nome de usuário
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    value="{{ user.username }}"
+                    disabled
+                >
+
+            </div>
+
+            <!-- SENHA ATUAL -->
+
+            <div
+                class="form-group hidden"
+                id="senhaAtualGroup"
+            >
+
+                <label>
+                    Senha Atual
+                </label>
+
+                <input
+                    type="password"
+                    name="senha_atual"
+                    id="senhaAtual"
+                >
+
+            </div>
+
+            <!-- NOVA SENHA -->
+
+            <div
+                class="form-group hidden"
+                id="novaSenhaGroup"
+            >
+
+                <label>
+                    Nova Senha
+                </label>
+
+                <input
+                    type="password"
+                    name="nova_senha"
+                    id="novaSenha"
+                >
+
+            </div>
+
+            <!-- CONFIRMAR SENHA -->
+
+            <div
+                class="form-group hidden"
+                id="confirmarSenhaGroup"
+            >
+
+                <label>
+                    Confirmar Nova Senha
+                </label>
+
+                <input
+                    type="password"
+                    name="confirmar_senha"
+                    id="confirmarSenha"
+                >
+
+            </div>
+
+            <!-- EXCLUIR PERFIL -->
+
+            <div
+                id="deleteArea"
+                class="hidden"
+            >
+
+                <div class="form-group">
+
+                    <label>
+                        Digite sua senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senhaDelete"
+                    >
+
+                </div>
+
+                <div class="checkbox-area">
+
+                    <input
+                        type="checkbox"
+                        id="confirmDelete"
+                    >
+
+                    <label for="confirmDelete">
+
+                        Confirmo exclusão dos meus dados
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- BOTÕES PRINCIPAIS -->
+
+            <div
+                class="form-actions"
+                id="mainButtons"
+            >
+
+                <button
+                    type="button"
+                    class="btn-action btn-update"
+                    onclick="abrirAtualizarNome()"
+                >
+                    Atualizar Nome
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-action btn-password"
+                    onclick="abrirAtualizarSenha()"
+                >
+                    Atualizar Senha
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-action btn-delete"
+                    onclick="abrirExcluirPerfil()"
+                >
+                    Excluir Perfil
+                </button>
+
+            </div>
+
+            <!-- BOTÕES SECUNDÁRIOS -->
+
+            <div
+                class="form-actions hidden"
+                id="secondaryButtons"
+            >
+
+                <button
+                    type="button"
+                    class="btn-action btn-confirm"
+                    onclick="confirmarAcao()"
+                >
+                    Confirmar
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-action btn-cancel"
+                    onclick="window.location.href='/perfil/'"
+                >
+                    Cancelar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+const username =
+    document.getElementById('username');
+
+const senhaAtualGroup =
+    document.getElementById('senhaAtualGroup');
+
+const novaSenhaGroup =
+    document.getElementById('novaSenhaGroup');
+
+const confirmarSenhaGroup =
+    document.getElementById('confirmarSenhaGroup');
+
+const deleteArea =
+    document.getElementById('deleteArea');
+
+const mainButtons =
+    document.getElementById('mainButtons');
+
+const secondaryButtons =
+    document.getElementById('secondaryButtons');
+
+const acaoInput =
+    document.getElementById('acaoInput');
+
+/* RESET */
+
+function resetar(){
+
+    username.disabled = true;
+
+    senhaAtualGroup.classList.add(
+        'hidden'
+    );
+
+    novaSenhaGroup.classList.add(
+        'hidden'
+    );
+
+    confirmarSenhaGroup.classList.add(
+        'hidden'
+    );
+
+    deleteArea.classList.add(
+        'hidden'
+    );
+
+    mainButtons.classList.remove(
+        'hidden'
+    );
+
+    secondaryButtons.classList.add(
+        'hidden'
+    );
+
+}
+
+/* ATUALIZAR NOME */
+
+function abrirAtualizarNome(){
+
+    resetar();
+
+    limparMensagens();
+
+    username.disabled = false;
+
+    senhaAtualGroup.classList.remove(
+        'hidden'
+    );
+
+    mainButtons.classList.add(
+        'hidden'
+    );
+
+    secondaryButtons.classList.remove(
+        'hidden'
+    );
+
+    acaoInput.value = 'nome';
+
+}
+
+/* ALTERAR SENHA */
+
+function abrirAtualizarSenha(){
+
+    resetar();
+
+    limparMensagens();
+
+    senhaAtualGroup.classList.remove(
+        'hidden'
+    );
+
+    novaSenhaGroup.classList.remove(
+        'hidden'
+    );
+
+    confirmarSenhaGroup.classList.remove(
+        'hidden'
+    );
+
+    mainButtons.classList.add(
+        'hidden'
+    );
+
+    secondaryButtons.classList.remove(
+        'hidden'
+    );
+
+    acaoInput.value = 'senha';
+
+}
+
+/* EXCLUIR PERFIL */
+
+function abrirExcluirPerfil(){
+
+    resetar();
+    limparMensagens();
+
+    deleteArea.classList.remove(
+        'hidden'
+    );
+
+    mainButtons.classList.add(
+        'hidden'
+    );
+
+    secondaryButtons.classList.remove(
+        'hidden'
+    );
+
+    acaoInput.value = 'excluir';
+
+}
+
+/* LIMPAR ALERTAS */
+
+/* LIMPAR APENAS SUCESSO */
+
+function limparMensagens(){
+
+    const successBox =
+        document.querySelector(
+            '.success-box'
+        );
+
+    /* REMOVE SOMENTE SUCESSO */
+
+    if(successBox){
+
+        successBox.remove();
+
+    }
+
+}
+
+/* CONFIRMAR */
+
+function confirmarAcao(){
+
+    const acao =
+        acaoInput.value;
+
+    /* EXCLUIR PERFIL */
+
+    if(acao === 'excluir'){
+
+        const senha =
+            document.getElementById(
+                'senhaDelete'
+            ).value;
+
+        const confirmar =
+            document.getElementById(
+                'confirmDelete'
+            ).checked;
+
+        if(!senha){
+
+            alert(
+                'Digite sua senha.'
+            );
+
+            return;
+        }
+
+        if(!confirmar){
+
+            alert(
+                'Confirme exclusão dos dados.'
+            );
+
+            return;
+        }
+
+        const form =
+            document.createElement('form');
+
+        form.method = 'POST';
+
+        form.action =
+            '/excluir-perfil/';
+
+        const csrf =
+            document.querySelector(
+                '[name=csrfmiddlewaretoken]'
+            );
+
+        const csrfInput =
+            document.createElement('input');
+
+        csrfInput.type = 'hidden';
+
+        csrfInput.name =
+            'csrfmiddlewaretoken';
+
+        csrfInput.value =
+            csrf.value;
+
+        form.appendChild(
+            csrfInput
+        );
+
+        const senhaInput =
+            document.createElement('input');
+
+        senhaInput.type = 'hidden';
+
+        senhaInput.name =
+            'senha';
+
+        senhaInput.value =
+            senha;
+
+        form.appendChild(
+            senhaInput
+        );
+
+        document.body.appendChild(
+            form
+        );
+
+        form.submit();
+
+        return;
+
+    }
+
+    /* OUTRAS AÇÕES */
+
+    document.getElementById(
+        'perfilForm'
+    ).submit();
+
+}
+
+/* REABRIR AÇÃO */
+
+window.onload = function(){
+
+    const acao =
+        "{{ acao|default:'' }}";
+
+    if(acao === 'nome'){
+
+        abrirAtualizarNome();
+
+    }
+
+    if(acao === 'senha'){
+
+        abrirAtualizarSenha();
+
+    }
+
+    if(acao === 'excluir'){
+
+        abrirExcluirPerfil();
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="page-title">
+    Painel Principal
+</h1>
+
+<div class="dashboard">
+
+    <!-- VISUALIZAR -->
+
+    <a href="/visualizar/" class="dashboard-card">
+
+        <h3>
+            Visualizar Estoque
+        </h3>
+
+        <p>
+            📦
+        </p>
+
+    </a>
+
+    <!-- EDITAR -->
+
+    <a href="/editar/" class="dashboard-card">
+
+        <h3>
+            Editar Estoque
+        </h3>
+
+        <p>
+            ✏️
+        </p>
+
+    </a>
+
+    <!-- CADASTRAR PRODUTO -->
+
+    <a href="/adicionar/" class="dashboard-card">
+
+        <h3>
+            Cadastrar Produto
+        </h3>
+
+        <p>
+            ➕
+        </p>
+
+    </a>
+
+    <!-- CADASTRAR CATEGORIA -->
+
+    <!-- <a href="/categorias/" class="dashboard-card">
+
+        <h3>
+            Cadastrar Categoria
+        </h3>
+
+        <p>
+            🗂️
+        </p>
+
+    </a> -->
+
+    <!-- RELATÓRIOS -->
+
+    <a href="/relatorios/" class="dashboard-card">
+
+        <h3>
+            Relatórios
+        </h3>
+
+        <p>
+            📊
+        </p>
+
+    </a>
+
+</div>
+
+{% endblock %}

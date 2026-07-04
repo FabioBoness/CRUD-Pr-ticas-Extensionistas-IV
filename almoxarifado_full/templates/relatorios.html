@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="page-title">
+    Relatórios
+</h1>
+
+<div class="dashboard">
+
+    <div class="dashboard-card">
+        <h3>Total de Itens</h3>
+        <p>{{ total_itens }}</p>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>Valor Total</h3>
+        <p>R$ {{ valor_total }}</p>
+    </div>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Valor Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for i in itens %}
+        <tr>
+
+            <td>{{ i.nome }}</td>
+            <td>{{ i.quantidade }}</td>
+            <td>R$ {{ i.valor_unitario }}</td>
+            <td>
+                <strong>
+                    R$ {{ i.valor_total }}
+                </strong>
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

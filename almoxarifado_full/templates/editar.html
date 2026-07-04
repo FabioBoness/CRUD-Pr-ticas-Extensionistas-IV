@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+    /* COLUNA AÇÕES */
+
+    .actions-column{
+        width:0px;
+        text-align:center;
+    }
+
+    /* BOTÃO */
+
+    .actions-group{
+
+        display:flex;
+
+        justify-content:center;
+    }
+
+    /* PESQUISA */
+
+    .search-container{
+
+        margin-bottom:25px;
+
+        display:flex;
+
+        justify-content:flex-start;
+    }
+
+    .search-input{
+
+        width:100%;
+
+        max-width:400px;
+
+        padding:14px 18px;
+
+        border-radius:12px;
+
+        border:1px solid #dce3ea;
+
+        background:white;
+
+        outline:none;
+
+        font-size:15px;
+
+        transition:0.2s;
+    }
+
+    .search-input:focus{
+
+        border-color:#3c6eaf;
+
+        box-shadow:0 0 0 4px rgba(60,110,175,0.10);
+    }
+
+</style>
+
+<!-- TOPO -->
+
+<div class="top-actions">
+
+    <h1 class="page-title">
+        Gerenciar Estoque
+    </h1>
+
+</div>
+
+<!-- PESQUISA -->
+
+<div class="search-container">
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Filtre pelo nome do produto ou código"
+    >
+
+</div>
+
+<!-- CARD -->
+
+<div class="card">
+
+    <table class="table" id="estoqueTable">
+
+        <!-- CABEÇALHO -->
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Produto
+                </th>
+
+                <th>
+                    Código
+                </th>
+
+                <th>
+                    <!-- Ações -->
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <!-- CORPO -->
+
+        <tbody>
+
+            {% for i in itens %}
+
+            <tr>
+
+                <!-- PRODUTO -->
+
+                <td class="produto">
+                    {{ i.nome }}
+                </td>
+
+                <!-- CÓDIGO -->
+
+                <td class="codigo">
+                    {{ i.codigo }}
+                </td>
+
+                <!-- AÇÕES -->
+
+                <td class="actions-column">
+
+                    <div class="actions-group">
+
+                        <a
+                            href="/atualizar/{{i.id}}/"
+                            class="btn btn-primary"
+                        >
+                            Editar
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- SCRIPT -->
+
+<script>
+
+const searchInput = document.getElementById('searchInput');
+
+searchInput.addEventListener('keyup', function(){
+
+    const filtro = searchInput.value.toLowerCase();
+
+    const linhas = document.querySelectorAll('#estoqueTable tbody tr');
+
+    linhas.forEach(function(linha){
+
+        const produto = linha
+            .querySelector('.produto')
+            .textContent
+            .toLowerCase();
+
+        const codigo = linha
+            .querySelector('.codigo')
+            .textContent
+            .toLowerCase();
+
+        if(
+            produto.includes(filtro) ||
+            codigo.includes(filtro)
+        ){
+
+            linha.style.display = '';
+
+        }else{
+
+            linha.style.display = 'none';
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}
