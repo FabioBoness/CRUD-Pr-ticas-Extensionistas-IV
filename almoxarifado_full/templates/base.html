@@ -19,16 +19,29 @@
         }
 
         body{
+
             font-family:'Inter', sans-serif;
+
             background:#f4f6f9;
+
             color:#1f2937;
+
+            min-height:100vh;
+
+            display:flex;
+
+            flex-direction:column;
+
         }
 
-        /* HEADER */
+        /* ==========================
+           HEADER
+        ========================== */
 
         .header{
 
             width:100%;
+
             height:75px;
 
             background:white;
@@ -36,42 +49,37 @@
             border-bottom:1px solid #dce3ea;
 
             display:flex;
+
             align-items:center;
+
             justify-content:space-between;
 
             padding:0 40px;
+
+            box-shadow:0 2px 8px rgba(0,0,0,.03);
+
         }
 
         /* LOGO */
 
         .logo{
+
             display:flex;
+
             align-items:center;
+
             gap:15px;
-        }
 
-        .logo-icon{
-
-            width:45px;
-            height:45px;
-
-            background:#1e3a5f;
-
-            border-radius:12px;
-
-            display:flex;
-            align-items:center;
-            justify-content:center;
-
-            color:white;
-
-            font-size:22px;
         }
 
         .logo h1{
 
-            font-size:20px;
+            font-size:22px;
+
             color:#1e3a5f;
+
+            font-weight:700;
+
         }
 
         /* AÇÕES HEADER */
@@ -79,11 +87,14 @@
         .header-actions{
 
             display:flex;
+
             align-items:center;
+
             gap:12px;
+
         }
 
-        /* BOTÕES */
+        /* BOTÕES HEADER */
 
         .header-btn{
 
@@ -99,43 +110,60 @@
 
             font-weight:600;
 
-            transition:0.2s;
+            transition:.2s;
 
             display:flex;
+
             align-items:center;
+
             gap:8px;
+
         }
 
         .header-btn:hover{
+
             transform:translateY(-2px);
+
         }
 
         .btn-menu{
 
             background:#edf2f7;
+
             color:#1f2937;
+
         }
 
         .btn-profile{
 
             background:#1e3a5f;
+
             color:white;
+
         }
 
         .btn-logout{
 
             background:#d64545;
+
             color:white;
+
         }
 
-        /* PAGE */
+        /* ==========================
+           CONTEÚDO
+        ========================== */
 
         .page{
 
             width:95%;
+
             max-width:1400px;
 
             margin:35px auto;
+
+            flex:1;
+
         }
 
         /* CARD */
@@ -148,10 +176,11 @@
 
             padding:25px;
 
-            box-shadow:0 4px 15px rgba(0,0,0,0.05);
+            box-shadow:0 4px 15px rgba(0,0,0,.05);
+
         }
 
-        /* BOTÕES GERAIS */
+        /* BOTÕES */
 
         .btn{
 
@@ -168,34 +197,51 @@
             text-decoration:none;
 
             display:inline-flex;
+
             align-items:center;
+
             gap:8px;
 
-            transition:0.2s;
+            transition:.2s;
+
         }
 
         .btn:hover{
+
             transform:translateY(-2px);
+
         }
 
         .btn-primary{
+
             background:#1e3a5f;
+
             color:white;
+
         }
 
         .btn-success{
+
             background:#2ea44f;
+
             color:white;
+
         }
 
         .btn-danger{
+
             background:#d64545;
+
             color:white;
+
         }
 
         .btn-light{
+
             background:#edf2f7;
+
             color:#1f2937;
+
         }
 
         /* INPUTS */
@@ -213,21 +259,33 @@
             outline:none;
 
             font-size:15px;
+
+            transition:.2s;
+
         }
 
         .input:focus{
+
             border-color:#3c6eaf;
+
+            box-shadow:0 0 0 3px rgba(60,110,175,.15);
+
         }
 
         /* TABELAS */
 
         .table{
+
             width:100%;
+
             border-collapse:collapse;
+
         }
 
         .table thead{
+
             background:#f8fafc;
+
         }
 
         .table th{
@@ -241,6 +299,7 @@
             font-weight:600;
 
             border-bottom:1px solid #e2e8f0;
+
         }
 
         .table td{
@@ -248,10 +307,13 @@
             padding:16px;
 
             border-bottom:1px solid #edf2f7;
+
         }
 
         .table tr:hover{
+
             background:#f9fbfd;
+
         }
 
         /* TÍTULOS */
@@ -260,9 +322,10 @@
 
             font-size:28px;
 
+            color:#1e3a5f;
+
             margin-bottom:25px;
 
-            color:#1e3a5f;
         }
 
         .top-actions{
@@ -274,6 +337,7 @@
             align-items:center;
 
             margin-bottom:25px;
+
         }
 
         /* DASHBOARD */
@@ -285,6 +349,7 @@
             grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 
             gap:20px;
+
         }
 
         .dashboard-card{
@@ -295,26 +360,289 @@
 
             padding:25px;
 
-            box-shadow:0 4px 15px rgba(0,0,0,0.05);
+            box-shadow:0 4px 15px rgba(0,0,0,.05);
 
             text-decoration:none;
 
-            transition:0.3s;
+            transition:.25s;
+
         }
 
         .dashboard-card:hover{
+
             transform:translateY(-5px);
+
         }
 
         .dashboard-card h3{
 
             color:#64748b;
 
-            margin-bottom:10px;
+            margin-bottom:12px;
+
         }
 
         .dashboard-card p{
-            font-size:35px;
+
+            font-size:36px;
+
+        }
+                /* ===================================
+            RODAPÉ
+        ==================================== */
+
+        .footer{
+
+            width:100%;
+
+            background:white;
+
+            border-top:1px solid #dce3ea;
+
+            padding:18px 40px;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            margin-top:auto;
+
+        }
+
+        .footer-contact{
+
+            background:#1e3a5f;
+
+            color:white;
+
+            border:none;
+
+            border-radius:10px;
+
+            padding:12px 22px;
+
+            cursor:pointer;
+
+            font-size:15px;
+
+            font-weight:600;
+
+            transition:.2s;
+
+        }
+
+        .footer-contact:hover{
+
+            background:#284c73;
+
+            transform:translateY(-2px);
+
+        }
+
+        /* ===================================
+            MODAL CONTATO
+        ==================================== */
+
+        .modal{
+
+            position:fixed;
+
+            top:0;
+
+            left:0;
+
+            width:100%;
+
+            height:100%;
+
+            background:rgba(0,0,0,.55);
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            z-index:9999;
+
+        }
+
+        .hidden{
+
+            display:none;
+
+        }
+
+        .modal-content{
+
+            width:650px;
+
+            max-width:90%;
+
+            max-height:80vh;
+
+            background:white;
+
+            border-radius:18px;
+
+            padding:30px;
+
+            position:relative;
+
+            box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+            display:flex;
+
+            flex-direction:column;
+
+        }
+
+        @keyframes fade{
+
+            from{
+
+                opacity:0;
+
+                transform:scale(.95);
+
+            }
+
+            to{
+
+                opacity:1;
+
+                transform:scale(1);
+
+            }
+
+        }
+
+        .modal-content h2{
+
+            color:#1e3a5f;
+
+            margin-bottom:25px;
+
+            text-align:center;
+
+            font-size:28px;
+
+        }
+
+.contacts-list{
+
+    margin-top:20px;
+
+    max-height:55vh;
+
+    overflow-y:auto;
+
+    padding-right:8px;
+
+}
+
+.contacts-list::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.contacts-list::-webkit-scrollbar-track{
+
+    background:#edf2f7;
+
+    border-radius:10px;
+
+}
+
+.contacts-list::-webkit-scrollbar-thumb{
+
+    background:#9aa9bb;
+
+    border-radius:10px;
+
+}
+
+.contacts-list::-webkit-scrollbar-thumb:hover{
+
+    background:#6f8298;
+
+}
+
+        .close{
+
+            position:absolute;
+
+            top:18px;
+
+            right:22px;
+
+            font-size:34px;
+
+            color:#64748b;
+
+            cursor:pointer;
+
+            transition:.2s;
+
+        }
+
+        .close:hover{
+
+            color:#d64545;
+
+        }
+
+        .dev-card{
+
+            background:#f8fafc;
+
+            border:1px solid #e2e8f0;
+
+            border-radius:14px;
+
+            padding:18px;
+
+            margin-bottom:18px;
+
+            transition:.2s;
+
+        }
+
+        .dev-card:hover{
+
+            border-color:#1e3a5f;
+
+            transform:translateY(-2px);
+
+        }
+
+        .dev-card h3{
+
+            color:#1e3a5f;
+
+            margin-bottom:10px;
+
+            font-size:19px;
+
+        }
+
+        .dev-card p{
+
+            margin:6px 0;
+
+            color:#475569;
+
+            font-size:15px;
+
+        }
+
+        .dev-card strong{
+
+            color:#1e3a5f;
+
         }
 
     </style>
@@ -329,11 +657,11 @@
 
     <div class="logo">
 
-        <!-- <div class="logo-icon">
-            📦
-        </div> -->
+        <h1>
 
-        <h1>Super Estoque</h1>
+            Super Estoque
+
+        </h1>
 
     </div>
 
@@ -343,26 +671,35 @@
 
     <div class="header-actions">
 
-        <!-- MENU -->
-
         {% if request.resolver_match.url_name != 'menu' %}
 
-        <a href="{% url 'menu' %}" class="header-btn btn-menu">
+        <a
+            href="{% url 'menu' %}"
+            class="header-btn btn-menu"
+        >
+
             Voltar ao Menu
+
         </a>
 
         {% endif %}
 
-        <!-- PERFIL -->
+        <a
+            href="/perfil/"
+            class="header-btn btn-profile"
+        >
 
-        <a href="/perfil/" class="header-btn btn-profile">
             Meu Perfil
+
         </a>
 
-        <!-- SAIR -->
+        <a
+            href="/logout/"
+            class="header-btn btn-logout"
+        >
 
-        <a href="/logout/" class="header-btn btn-logout">
             Sair
+
         </a>
 
     </div>
@@ -374,9 +711,224 @@
 <div class="page">
 
     {% block content %}
+
     {% endblock %}
 
 </div>
+
+<footer class="footer">
+
+    <button
+
+        class="footer-contact"
+
+        onclick="abrirContato()"
+
+    >
+
+        📞 Contato
+
+    </button>
+
+</footer>
+<!-- MODAL CONTATO -->
+
+<div
+    id="modalContato"
+    class="modal hidden"
+>
+
+    <div class="modal-content">
+
+        <span
+            class="close"
+            onclick="fecharContato()"
+        >
+            &times;
+        </span>
+
+        <h2>
+            Contato dos Desenvolvedores
+        </h2>
+
+        <div class="dev-card">
+
+            <p>
+
+                <strong>Nome:</strong>
+
+                <!-- Nome do desenvolvedor -->
+
+            </p>
+
+            <p>
+
+                <strong>Telefone:</strong>
+
+                <!-- número de telefone -->
+
+            </p>
+
+            <p>
+
+                <strong>E-mail:</strong>
+
+                <!-- e-mail -->
+
+            </p>
+
+        </div>
+
+        <div class="dev-card">
+
+            <p>
+
+                <strong>Nome:</strong>
+
+                <!-- Nome do desenvolvedor -->
+
+            </p>
+
+            <p>
+
+                <strong>Telefone:</strong>
+
+                <!-- número de telefone -->
+
+            </p>
+
+            <p>
+
+                <strong>E-mail:</strong>
+
+                <!-- e-mail -->
+
+            </p>
+
+        </div>
+
+        <div class="dev-card">
+
+            <p>
+
+                <strong>Nome:</strong>
+
+                <!-- Nome do desenvolvedor -->
+
+            </p>
+
+            <p>
+
+                <strong>Telefone:</strong>
+
+                <!-- número de telefone -->
+
+            </p>
+
+            <p>
+
+                <strong>E-mail:</strong>
+
+                <!-- e-mail -->
+
+            </p>
+
+        </div>
+
+        <div class="dev-card">
+
+            <p>
+
+                <strong>Nome:</strong>
+
+                <!-- Nome do desenvolvedor -->
+
+            </p>
+
+            <p>
+
+                <strong>Telefone:</strong>
+
+                <!-- número de telefone -->
+
+            </p>
+
+            <p>
+
+                <strong>E-mail:</strong>
+
+                <!-- e-mail -->
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const modalContato =
+    document.getElementById(
+        "modalContato"
+    );
+
+/* ABRIR MODAL */
+
+function abrirContato(){
+
+    modalContato.classList.remove(
+        "hidden"
+    );
+
+}
+
+/* FECHAR MODAL */
+
+function fecharContato(){
+
+    modalContato.classList.add(
+        "hidden"
+    );
+
+}
+
+/* FECHAR AO CLICAR FORA */
+
+modalContato.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target === modalContato
+        ){
+
+            fecharContato();
+
+        }
+
+    }
+);
+
+/* FECHAR COM ESC */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            fecharContato();
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
 
